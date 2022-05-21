@@ -2,15 +2,48 @@ import React from 'react'
 import {
     Box, Flex, Text, IconButton, Button, useDisclosure,
     Stack, Collapse, Icon, Link, Popover, PopoverTrigger,
-    PopoverContent, useColorModeValue, useBreakpointValue,
+    PopoverContent, useColorModeValue, useBreakpointValue, Avatar, Menu, MenuButton, MenuList, Center, MenuDivider, MenuItem, useColorMode,
 } from '@chakra-ui/react';
+import { NavLink } from "react-router-dom"
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5"
 import { HiOutlineChevronDown } from "react-icons/hi"
+import { BsSun, BsMoon } from "react-icons/bs"
 import DesktopSubNav from './DesktopSubNav';
+
+
+const NAV_ITEMS = [
+    {
+        label: 'Home',
+        href: '/'
+    },
+    {
+        label: 'Find Work',
+        children: [
+            {
+                label: 'Job Board',
+                subLabel: 'Find your dream design job',
+                href: '#',
+            },
+            {
+                label: 'Freelance Projects',
+                href: '#',
+            },
+        ],
+    },
+    {
+        label: 'About Us',
+        href: '/about-us',
+    },
+    {
+        label: 'Contact Us',
+        href: '/contact-us',
+    },
+];
 
 const NavBar = () => {
     const { isOpen, onToggle } = useDisclosure();
+    const { colorMode, toggleColorMode } = useColorMode();
     return (
         <Box>
             <Flex
@@ -54,6 +87,42 @@ const NavBar = () => {
                     justify={'flex-end'}
                     direction={'row'}
                     spacing={6}>
+
+                    <Button onClick={toggleColorMode}>
+                        {colorMode === 'light' ? <BsMoon /> : <BsSun />}
+                    </Button>
+
+                    <Menu>
+                        <MenuButton
+                            as={Button}
+                            rounded={'full'}
+                            variant={'link'}
+                            cursor={'pointer'}
+                            minW={0}>
+                            <Avatar
+                                size={'sm'}
+                                src={'https://avatars.dicebear.com/api/male/username.svg'}
+                            />
+                        </MenuButton>
+                        <MenuList alignItems={'center'}>
+                            <br />
+                            <Center>
+                                <Avatar
+                                    size={'2xl'}
+                                    src={'https://avatars.dicebear.com/api/male/username.svg'}
+                                />
+                            </Center>
+                            <br />
+                            <Center>
+                                <p>Username</p>
+                            </Center>
+                            <br />
+                            <MenuDivider />
+                            <MenuItem>Your Servers</MenuItem>
+                            <MenuItem>Account Settings</MenuItem>
+                            <MenuItem>Logout</MenuItem>
+                        </MenuList>
+                    </Menu>
                     <Button
                         as={'a'}
                         fontSize={'sm'}
@@ -99,8 +168,9 @@ const DesktopNav = () => {
                     <Popover trigger={'hover'} placement={'bottom-start'}>
                         <PopoverTrigger>
                             <Link
+                                as={NavLink}
                                 p={2}
-                                href={navItem.href ?? '#'}
+                                to={navItem.href ?? '#'}
                                 fontSize={'sm'}
                                 fontWeight={500}
                                 color={linkColor}
@@ -197,44 +267,3 @@ const MobileNavItem = ({ label, children, href }) => {
         </Stack>
     );
 };
-
-const NAV_ITEMS = [
-    {
-        label: 'Inspiration',
-        children: [
-            {
-                label: 'Explore Design Work',
-                subLabel: 'Trending Design to inspire you',
-                href: '#',
-            },
-            {
-                label: 'New & Noteworthy',
-                subLabel: 'Up-and-coming Designers',
-                href: '#',
-            },
-        ],
-    },
-    {
-        label: 'Find Work',
-        children: [
-            {
-                label: 'Job Board',
-                subLabel: 'Find your dream design job',
-                href: '#',
-            },
-            {
-                label: 'Freelance Projects',
-                subLabel: 'An exclusive list for contract work',
-                href: '#',
-            },
-        ],
-    },
-    {
-        label: 'Learn Design',
-        href: '#',
-    },
-    {
-        label: 'Hire Designers',
-        href: '#',
-    },
-];
