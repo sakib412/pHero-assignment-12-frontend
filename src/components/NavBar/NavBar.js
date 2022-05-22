@@ -44,16 +44,18 @@ const NavBar = () => {
     const { isOpen, onToggle } = useDisclosure();
     const { colorMode, toggleColorMode } = useColorMode();
     return (
-        <Box bg={useColorModeValue('white', 'gray.800')}>
+        <Box
+            bg={useColorModeValue('white', 'gray.800')}
+            borderBottom={2}
+            borderStyle='solid'
+            borderColor={useColorModeValue('gray.200', 'gray.900')}
+        >
             <Flex
                 className='container mx-auto'
                 color={useColorModeValue('gray.600', 'white')}
                 minH={'60px'}
                 py={{ base: 2 }}
                 px={{ base: 4 }}
-                borderBottom={1}
-                borderStyle={'solid'}
-                borderColor={useColorModeValue('gray.200', 'gray.900')}
                 align={'center'}>
                 <Flex
                     flex={{ base: 1, md: 'auto' }}
@@ -125,11 +127,11 @@ const NavBar = () => {
                         </MenuList>
                     </Menu>
                     <Button
-                        as={'a'}
+                        as={RLink}
                         fontSize={'sm'}
                         fontWeight={400}
                         variant={'link'}
-                        href={'#'}>
+                        to='/signin'>
                         Sign In
                     </Button>
                     <Button
