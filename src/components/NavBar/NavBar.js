@@ -4,7 +4,7 @@ import {
     Stack, Collapse, Icon, Link, Popover, PopoverTrigger,
     PopoverContent, useColorModeValue, useBreakpointValue, Avatar, Menu, MenuButton, MenuList, Center, MenuDivider, MenuItem, useColorMode,
 } from '@chakra-ui/react';
-import { NavLink } from "react-router-dom"
+import { NavLink, Link as RLink } from "react-router-dom"
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5"
 import { HiOutlineChevronDown } from "react-icons/hi"
@@ -22,7 +22,6 @@ const NAV_ITEMS = [
         children: [
             {
                 label: 'Job Board',
-                subLabel: 'Find your dream design job',
                 href: '#',
             },
             {
@@ -45,9 +44,9 @@ const NavBar = () => {
     const { isOpen, onToggle } = useDisclosure();
     const { colorMode, toggleColorMode } = useColorMode();
     return (
-        <Box>
+        <Box bg={useColorModeValue('white', 'gray.800')}>
             <Flex
-                bg={useColorModeValue('white', 'gray.800')}
+                className='container mx-auto'
                 color={useColorModeValue('gray.600', 'white')}
                 minH={'60px'}
                 py={{ base: 2 }}
@@ -70,12 +69,14 @@ const NavBar = () => {
                     />
                 </Flex>
                 <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-                    <Text
-                        textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-                        fontFamily={'heading'}
-                        color={useColorModeValue('gray.800', 'white')}>
-                        Logo
-                    </Text>
+                    <RLink to="/">
+                        <Text textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
+                            fontFamily={'heading'}
+                            fontSize="large"
+                            color={useColorModeValue('gray.800', 'white')}>
+                            Logo
+                        </Text>
+                    </RLink>
 
                     <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
                         <DesktopNav />
@@ -136,10 +137,10 @@ const NavBar = () => {
                         fontSize={'sm'}
                         fontWeight={600}
                         color={'white'}
-                        bg={'pink.400'}
+                        bg={'brand.400'}
                         href={'#'}
                         _hover={{
-                            bg: 'pink.300',
+                            bg: 'brand.300',
                         }}>
                         Sign Up
                     </Button>
@@ -189,7 +190,7 @@ const DesktopNav = () => {
                                 bg={popoverContentBgColor}
                                 p={4}
                                 rounded={'xl'}
-                                minW={'sm'}>
+                            >
                                 <Stack>
                                     {navItem.children.map((child) => (
                                         <DesktopSubNav key={child.label} {...child} />

@@ -9,7 +9,7 @@ function App() {
       <header>
         <NavBar />
       </header>
-      <main className=''>
+      <main>
         <Routes>
           <Route path='/' element={<Home />} />
         </Routes>

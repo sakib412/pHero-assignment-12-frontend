@@ -9,10 +9,22 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const colors = {
   brand: {
-    900: '#1a365d',
-    800: '#153e75',
-    700: '#2a69ac',
+    900: '#521B41',
+    800: '#702459',
+    700: '#97266D',
+    600: '#B83280',
+    500: '#D53F8C',
+    400: '#ED64A6',
+    300: '#F687B3',
+    200: '#FBB6CE',
+    100: '#FED7E2'
   },
+  primary: {
+
+  },
+  secondary: {
+
+  }
 }
 
 const theme = extendTheme({ colors })
