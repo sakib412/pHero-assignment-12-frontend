@@ -10,6 +10,9 @@ import { IoClose } from "react-icons/io5"
 import { HiOutlineChevronDown } from "react-icons/hi"
 import { BsSun, BsMoon } from "react-icons/bs"
 import DesktopSubNav from './DesktopSubNav';
+import { useAuthState } from 'react-firebase-hooks/auth'
+import auth from '../../utils/firebase.init';
+import { signOut } from 'firebase/auth';
 
 
 const NAV_ITEMS = [
@@ -43,6 +46,14 @@ const NAV_ITEMS = [
 const NavBar = () => {
     const { isOpen, onToggle } = useDisclosure();
     const { colorMode, toggleColorMode } = useColorMode();
+    const [user] = useAuthState(auth)
+    const onLogout = () => {
+        signOut(auth)
+        // localStorage.removeItem(ACCESS_TOKEN)
+
+        // navigate('/login')
+    }
+    console.log(user)
     return (
         <Box
             bg={useColorModeValue('white', 'gray.800')}
@@ -94,58 +105,64 @@ const NavBar = () => {
                     <Button onClick={toggleColorMode}>
                         {colorMode === 'light' ? <BsMoon /> : <BsSun />}
                     </Button>
-
-                    <Menu>
-                        <MenuButton
-                            as={Button}
-                            rounded={'full'}
-                            variant={'link'}
-                            cursor={'pointer'}
-                            minW={0}>
-                            <Avatar
-                                size={'sm'}
-                                src={'https://avatars.dicebear.com/api/male/username.svg'}
-                            />
-                        </MenuButton>
-                        <MenuList alignItems={'center'}>
-                            <br />
-                            <Center>
+                    {user ? (
+                        <Menu>
+                            <MenuButton
+                                as={Button}
+                                rounded={'full'}
+                                variant={'link'}
+                                cursor={'pointer'}
+                                minW={0}>
                                 <Avatar
-                                    size={'2xl'}
-                                    src={'https://avatars.dicebear.com/api/male/username.svg'}
+                                    size={'sm'}
+                                    src={user?.photoURL || 'https://avatars.dicebear.com/api/male/username.svg'}
                                 />
-                            </Center>
-                            <br />
-                            <Center>
-                                <p>Username</p>
-                            </Center>
-                            <br />
-                            <MenuDivider />
-                            <MenuItem>Your Servers</MenuItem>
-                            <MenuItem>Account Settings</MenuItem>
-                            <MenuItem>Logout</MenuItem>
-                        </MenuList>
-                    </Menu>
-                    <Button
-                        as={RLink}
-                        fontSize={'sm'}
-                        fontWeight={400}
-                        variant={'link'}
-                        to='/signin'>
-                        Sign In
-                    </Button>
-                    <Button
-                        display={{ base: 'none', md: 'inline-flex' }}
-                        fontSize={'sm'}
-                        fontWeight={600}
-                        color={'white'}
-                        bg={'brand.400'}
-                        href={'#'}
-                        _hover={{
-                            bg: 'brand.300',
-                        }}>
-                        Sign Up
-                    </Button>
+                            </MenuButton>
+
+                            <MenuList alignItems={'center'}>
+                                <br />
+                                <Center>
+                                    <Avatar
+                                        size={'2xl'}
+                                        src={user?.photoURL || 'https://avatars.dicebear.com/api/male/username.svg'}
+                                    />
+                                </Center>
+                                <Center py='2'>
+                                    <p>{user?.displayName}</p>
+                                </Center>
+                                <MenuDivider />
+                                <MenuItem>My Profile</MenuItem>
+                                <MenuItem>Account Settings</MenuItem>
+                                <MenuItem onClick={onLogout}>Logout</MenuItem>
+                            </MenuList>
+                        </Menu>
+                    ) : (
+                        <>
+                            <Button
+                                as={RLink}
+                                fontSize={'sm'}
+                                fontWeight={400}
+                                variant={'link'}
+                                to='/signin'>
+                                Sign In
+                            </Button>
+                            <Button
+                                display={{ base: 'none', md: 'inline-flex' }}
+                                fontSize={'sm'}
+                                fontWeight={600}
+                                color={'white'}
+                                bg={'brand.400'}
+                                href={'#'}
+                                _hover={{
+                                    bg: 'brand.300',
+                                }}>
+                                Sign Up
+                            </Button>
+                        </>
+                    )}
+
+
+
                 </Stack>
             </Flex>
 

@@ -9,6 +9,8 @@ import { useForm } from 'react-hook-form'
 import { FaEye, FaEyeSlash, FaFacebook } from "react-icons/fa"
 import { FcGoogle } from "react-icons/fc"
 import { Link as RLink } from "react-router-dom"
+import { useSignInWithGoogle } from "react-firebase-hooks/auth"
+import auth from '../../utils/firebase.init';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -17,6 +19,16 @@ const Login = () => {
         register,
         formState: { errors, isSubmitting },
     } = useForm()
+    const [
+        signInWithGoogle,
+        // eslint-disable-next-line no-unused-vars
+        userFromGoogle,
+        // eslint-disable-next-line no-unused-vars
+        loadingFromGoogle,
+        // eslint-disable-next-line no-unused-vars
+        errorFromGoogle
+    ] = useSignInWithGoogle(auth);
+
     function onSubmit(values) {
         console.log(values)
     }
@@ -107,8 +119,8 @@ const Login = () => {
                 </div>
                 <Center >
                     <Stack spacing={5} align={'center'} maxW={'md'} w={'full'}>
-
                         <Button
+                            onClick={() => signInWithGoogle()}
                             bg={useColorModeValue('white', 'gray.700')}
                             w={'full'}
                             variant={'outline'}
