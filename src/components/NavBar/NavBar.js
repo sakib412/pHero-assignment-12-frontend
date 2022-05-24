@@ -21,17 +21,8 @@ const NAV_ITEMS = [
         href: '/'
     },
     {
-        label: 'Find Work',
-        children: [
-            {
-                label: 'Job Board',
-                href: '#',
-            },
-            {
-                label: 'Freelance Projects',
-                href: '#',
-            },
-        ],
+        label: 'Dashboard',
+        href: '/dashboard'
     },
     {
         label: 'About Us',

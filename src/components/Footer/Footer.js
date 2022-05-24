@@ -53,6 +53,7 @@ const Footer = () => {
         <Box
             bg={useColorModeValue('gray.50', 'gray.900')}
             borderTop={2}
+            className='relative'
             borderStyle='solid'
             borderColor={useColorModeValue('gray.200', 'gray.900')}
             color={useColorModeValue('gray.700', 'gray.200')}>

@@ -17,8 +17,9 @@ function StatsCard(props) {
     const { title, stat, icon } = props;
     return (
         <Stat
-            px={{ base: 2, md: 4 }}
-            py={'5'}
+            maxW='full'
+            px={{ base: 4, md: 4 }}
+            py={'3'}
             mb='10'
             shadow={'xl'}
             border={'1px solid'}
@@ -30,7 +31,7 @@ function StatsCard(props) {
             rounded={'lg'}>
             <Flex justifyContent={'space-between'}>
                 <Box pl={{ base: 2, md: 4 }}>
-                    <StatLabel fontWeight={'medium'} isTruncated>
+                    <StatLabel fontWeight={'medium'} istruncated='true'>
                         {title}
                     </StatLabel>
                     <StatNumber fontSize={'2xl'} fontWeight={'medium'}
@@ -52,7 +53,7 @@ function StatsCard(props) {
 
 export default function Summary() {
     return (
-        <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
+        <Box className='container mx-auto' pt={5} px={{ base: 2, sm: 12, md: 15 }}>
             <chakra.h1
                 textAlign={'center'}
                 fontSize={'4xl'}
@@ -60,7 +61,7 @@ export default function Summary() {
                 fontWeight={'bold'}>
                 Business Summary
             </chakra.h1>
-            <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 5, lg: 8 }}>
+            <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={{ base: 5, lg: 8 }}>
                 <StatsCard
                     title={'Users'}
                     stat={'100K+'}
