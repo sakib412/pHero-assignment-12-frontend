@@ -4,7 +4,7 @@ import {
     Stack, Collapse, Icon, Link, Popover, PopoverTrigger,
     PopoverContent, useColorModeValue, useBreakpointValue, Avatar, Menu, MenuButton, MenuList, Center, MenuDivider, MenuItem, useColorMode,
 } from '@chakra-ui/react';
-import { NavLink, Link as RLink } from "react-router-dom"
+import { NavLink, Link as RLink, useNavigate } from "react-router-dom"
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5"
 import { HiOutlineChevronDown } from "react-icons/hi"
@@ -35,16 +35,17 @@ const NAV_ITEMS = [
 ];
 
 const NavBar = () => {
+    const navigate = useNavigate()
     const { isOpen, onToggle } = useDisclosure();
     const { colorMode, toggleColorMode } = useColorMode();
     const [user] = useAuthState(auth)
+    console.log(user)
+
     const onLogout = () => {
         signOut(auth)
         // localStorage.removeItem(ACCESS_TOKEN)
-
-        // navigate('/login')
+        navigate('/signin')
     }
-    console.log(user)
     return (
         <Box
             bg={useColorModeValue('white', 'gray.800')}
