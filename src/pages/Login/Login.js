@@ -1,18 +1,25 @@
+import { useEffect, useState } from 'react';
+import { Link as RLink, useLocation, useNavigate } from "react-router-dom"
+import { useForm } from 'react-hook-form'
+import { useSignInWithGoogle, useSignInWithEmailAndPassword } from "react-firebase-hooks/auth"
 import {
     Flex, Box,
     FormControl, FormLabel, Input,
     Stack, Link, Button,
     Heading, Text, useColorModeValue, FormErrorMessage, InputGroup, InputRightElement, Center,
 } from '@chakra-ui/react';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form'
+// Icons
 import { FaEye, FaEyeSlash, FaFacebook } from "react-icons/fa"
 import { FcGoogle } from "react-icons/fc"
-import { Link as RLink } from "react-router-dom"
-import { useSignInWithGoogle } from "react-firebase-hooks/auth"
+
 import auth from '../../utils/firebase.init';
+import useNotification from '../../utils/useNotification';
 
 const Login = () => {
+    const { error, success } = useNotification()
+    const navigate = useNavigate()
+    const location = useLocation()
+    let from = location.state?.from?.pathname || "/";
     const [showPassword, setShowPassword] = useState(false);
     const {
         handleSubmit,
@@ -21,15 +28,32 @@ const Login = () => {
     } = useForm()
     const [
         signInWithGoogle,
-        // eslint-disable-next-line no-unused-vars
         userFromGoogle,
-        // eslint-disable-next-line no-unused-vars
         loadingFromGoogle,
-        // eslint-disable-next-line no-unused-vars
         errorFromGoogle
     ] = useSignInWithGoogle(auth);
+    const [
+        signInWithEmailAndPassword, user, loading, signinError,
+    ] = useSignInWithEmailAndPassword(auth);
 
-    function onSubmit(values) {
+
+    useEffect(() => {
+        if (errorFromGoogle || signinError) {
+            error(errorFromGoogle?.message || signinError?.message)
+        }
+    }, [error, errorFromGoogle, signinError])
+
+    useEffect(() => {
+        if (user || userFromGoogle) {
+            // assignJWT(user?.user?.email || userFromGoogle?.user?.email)
+            success("Logged in successfully")
+            navigate(from, { replace: true })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user, userFromGoogle])
+
+    async function onSubmit(values) {
+        await signInWithEmailAndPassword(values.email, values.password)
         console.log(values)
     }
 
@@ -97,7 +121,7 @@ const Login = () => {
                                     <Text color={'brand.400'} className='cursor-pointer'>Forgot password?</Text>
                                 </Stack>
                                 <Button
-                                    isLoading={isSubmitting}
+                                    isLoading={isSubmitting || loadingFromGoogle || loading}
                                     type='submit'
                                     bg={'brand.400'}
                                     color={'white'}

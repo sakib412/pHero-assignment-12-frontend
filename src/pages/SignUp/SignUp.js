@@ -50,19 +50,28 @@ const SignUp = () => {
 
     useEffect(() => {
         if (user?.user?.displayName || userFromGoogle) {
-            console.log(user.user)
             axiosInstance.post('/signup', {
-                name: user.user.displayName,
-                email: user.user.email,
-                image: user.user?.photoURL || null,
+                name: (user && user?.user?.displayName) || userFromGoogle?.user?.displayName,
+                email: (user && user?.user?.email) || userFromGoogle?.user?.email,
+                image: (user && user?.user?.photoURL) || userFromGoogle?.user?.photoURL || null,
+                method: userFromGoogle?.user?.email ? 'google' : 'form'
+            }).then(({ data }) => {
+                toast({
+                    title: "Account created!!!",
+                    status: 'success',
+                    position: 'top-right',
+                    isClosable: true
+                })
+                navigate("/", { replace: true })
+            }).catch((err) => {
+                console.dir(err)
+                toast({
+                    title: err?.message || "Something went wrong",
+                    position: 'top-right',
+                    status: 'error',
+                    isClosable: true
+                })
             })
-            toast({
-                title: "Account created!!!",
-                status: 'success',
-                position: 'top-right',
-                isClosable: true
-            })
-            navigate("/", { replace: true })
         }
     }, [navigate, toast, user, user?.user?.displayName, userFromGoogle])
 
