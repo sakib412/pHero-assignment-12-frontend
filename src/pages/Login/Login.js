@@ -14,6 +14,8 @@ import { FcGoogle } from "react-icons/fc"
 
 import auth from '../../utils/firebase.init';
 import useNotification from '../../utils/useNotification';
+import assignJWT from "../../utils/assignJWT"
+import axiosInstance from "../../utils/axios"
 
 const Login = () => {
     const { error, success } = useNotification()
@@ -41,13 +43,21 @@ const Login = () => {
         if (errorFromGoogle || signinError) {
             error(errorFromGoogle?.message || signinError?.message)
         }
-    }, [error, errorFromGoogle, signinError])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [errorFromGoogle, signinError])
 
     useEffect(() => {
         if (user || userFromGoogle) {
-            // assignJWT(user?.user?.email || userFromGoogle?.user?.email)
-            success("Logged in successfully")
-            navigate(from, { replace: true })
+            axiosInstance.post('/login', {
+                email: user?.user?.email || userFromGoogle?.user?.email,
+                image: user?.user?.photoURL || userFromGoogle?.user?.photoURL,
+                name: user?.user?.displayName || userFromGoogle?.user?.displayName
+            }).then(({ data }) => {
+                console.log(data)
+                assignJWT(data.results?.accessToken)
+                success("Logged in successfully")
+                navigate(from, { replace: true })
+            })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, userFromGoogle])

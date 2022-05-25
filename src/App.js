@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Footer from './components/Footer/Footer';
 import NavBar from './components/NavBar/NavBar';
+import RequireAuth from './components/RequireAuth/RequireAuth';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
@@ -19,7 +20,10 @@ function App() {
           <Route index element={<Home />} />
           <Route path='/signin' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
-          <Route path='dashboard' element={<Dashboard />} >
+          <Route path='dashboard'
+            element={<RequireAuth>
+              <Dashboard />
+            </RequireAuth>} >
             <Route index element={<div>My Dashboard</div>} />
             <Route path='profile' element={<div>My profile</div>} />
           </Route>

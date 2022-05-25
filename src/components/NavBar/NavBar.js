@@ -16,6 +16,7 @@ import { FiLogOut, FiUser } from 'react-icons/fi';
 
 import DesktopSubNav from './DesktopSubNav';
 import auth from '../../utils/firebase.init';
+import { ACCESS_TOKEN } from '../../utils/axios';
 
 
 const NAV_ITEMS = [
@@ -45,7 +46,7 @@ const NavBar = () => {
 
     const onLogout = () => {
         signOut(auth)
-        // localStorage.removeItem(ACCESS_TOKEN)
+        localStorage.removeItem(ACCESS_TOKEN)
         navigate('/signin')
     }
     return (
