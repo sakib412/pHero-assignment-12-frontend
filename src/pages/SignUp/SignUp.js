@@ -27,14 +27,15 @@ const SignUp = () => {
     const [
         signInWithGoogle,
         userFromGoogle,
-        // eslint-disable-next-line no-unused-vars
         loadingFromGoogle,
         errorFromGoogle
     ] = useSignInWithGoogle(auth);
 
-    // eslint-disable-next-line no-unused-vars
-    const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth)
-    // eslint-disable-next-line no-unused-vars
+    const [
+        createUserWithEmailAndPassword, user, loading, error
+    ] = useCreateUserWithEmailAndPassword(auth, {
+        sendEmailVerification: true // after registering, send user confirmation email
+    })
     const [updateProfile, updating, updateError] = useUpdateProfile(auth)
 
     useEffect(() => {
@@ -179,7 +180,7 @@ const SignUp = () => {
                             </FormControl>
                             <Stack spacing={5}>
                                 <Button
-                                    isLoading={isSubmitting}
+                                    isLoading={isSubmitting || loading || loadingFromGoogle || updating}
                                     type='submit'
                                     bg={'brand.400'}
                                     color={'white'}
