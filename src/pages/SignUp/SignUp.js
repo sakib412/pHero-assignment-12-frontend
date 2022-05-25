@@ -11,6 +11,7 @@ import { FcGoogle } from "react-icons/fc"
 import { Link as RLink, useNavigate } from "react-router-dom"
 import { useSignInWithGoogle, useCreateUserWithEmailAndPassword, useUpdateProfile } from "react-firebase-hooks/auth"
 import auth from '../../utils/firebase.init';
+import axiosInstance from '../../utils/axios';
 
 const SignUp = () => {
     const navigate = useNavigate()
@@ -48,16 +49,22 @@ const SignUp = () => {
     }, [error, updateError, errorFromGoogle, toast])
 
     useEffect(() => {
-        if (user || userFromGoogle) {
+        if (user?.user?.displayName || userFromGoogle) {
+            console.log(user.user)
+            axiosInstance.post('/signup', {
+                name: user.user.displayName,
+                email: user.user.email,
+                image: user.user?.photoURL || null,
+            })
             toast({
                 title: "Account created!!!",
                 status: 'success',
                 position: 'top-right',
                 isClosable: true
             })
-            window.location.href = '/'
+            navigate("/", { replace: true })
         }
-    }, [navigate, toast, user, userFromGoogle])
+    }, [navigate, toast, user, user?.user?.displayName, userFromGoogle])
 
     const onSubmit = async (values) => {
         await createUserWithEmailAndPassword(values.email, values.password)
