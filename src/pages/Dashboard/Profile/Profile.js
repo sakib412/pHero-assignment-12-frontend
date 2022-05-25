@@ -1,13 +1,15 @@
 import {
     Button, Center, Flex, Heading, Image, Stack,
-    Text, useColorModeValue
+    Text, useColorModeValue, useDisclosure
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { FaLinkedin } from 'react-icons/fa';
 import SocialButton from '../../../components/SocialButton/SocialButton';
 import axiosInstance from '../../../utils/axios';
+import ProfileUpdateModal from './UpdateProfile';
 
 const Profile = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const [user, setUser] = useState({})
     useEffect(() => {
         axiosInstance.get('/me').then(({ data }) => {
@@ -18,6 +20,7 @@ const Profile = () => {
 
     return (
         <Center>
+            <ProfileUpdateModal isOpen={isOpen} onClose={onClose} user={user} setUser={setUser} />
             <Stack
                 width='full'
                 borderWidth="1px"
@@ -75,6 +78,7 @@ const Profile = () => {
                         justifyContent={'space-between'}
                         alignItems={'center'}>
                         <Button
+                            onClick={onOpen}
                             flex={1}
                             fontSize={'sm'}
                             rounded={'full'}
