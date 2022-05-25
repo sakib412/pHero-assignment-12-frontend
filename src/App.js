@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import NotFound from './pages/NotFound/NotFound';
+import Purchage from './pages/Purchage/Purchage';
 import SignUp from './pages/SignUp/SignUp';
 
 function App() {
@@ -20,13 +21,20 @@ function App() {
           <Route index element={<Home />} />
           <Route path='/signin' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
+          {/* Dashboard start */}
           <Route path='dashboard'
-            element={<RequireAuth>
-              <Dashboard />
-            </RequireAuth>} >
+            element={
+              <RequireAuth>
+                <Dashboard />
+              </RequireAuth>} >
             <Route index element={<div>My Dashboard</div>} />
-            <Route path='profile' element={<div>My profile</div>} />
+            <Route path='add-review' element={<div>My profile</div>} />
           </Route>
+          {/* Dashboard end */}
+          <Route path='/purchage/:id' element={
+            <RequireAuth>
+              <Purchage />
+            </RequireAuth>} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </main>

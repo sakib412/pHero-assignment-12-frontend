@@ -1,30 +1,14 @@
 import React from 'react';
 import { Link as RLink } from 'react-router-dom'
 import {
-    IconButton,
-    Box,
-    CloseButton,
-    Flex,
-    Icon,
-    useColorModeValue,
-    Link,
-    Drawer,
-    DrawerContent,
-    Text,
-    useDisclosure,
+    IconButton, Box, CloseButton, Flex, Icon, useColorModeValue, Link,
+    Drawer, DrawerContent, Text, useDisclosure,
 } from '@chakra-ui/react';
-import {
-    FiHome,
-    FiTrendingUp,
-    FiCompass,
-    FiArrowRight,
-    FiUser
-} from 'react-icons/fi';
+import { FiTrendingUp, FiCompass, FiArrowRight, FiUser } from 'react-icons/fi';
 
 
 const LinkItems = [
-    { name: 'Dashboard', icon: FiHome, href: '/dashboard' },
-    { name: 'My Profile', icon: FiUser, href: '/dashboard/profile' },
+    { name: 'My Profile', icon: FiUser, href: '/dashboard' },
     { name: 'My Orders', icon: FiTrendingUp, href: '/dashboard/my-orders' },
     { name: 'Add A Review', icon: FiCompass, href: '/dashboard/add-review' },
 ];
