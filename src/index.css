@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+.active, .active>div {
+    background-color: grey !important;
+    color: white !important;
+}

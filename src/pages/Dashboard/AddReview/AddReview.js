@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input, Stack, Textarea, useColorModeValue } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input, Stack, Text, Textarea, useColorModeValue } from '@chakra-ui/react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import axiosInstance from '../../../utils/axios'
@@ -6,19 +6,22 @@ import useNotification from '../../../utils/useNotification'
 
 const AddReview = () => {
     const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm()
-    const { success } = useNotification()
+    const { success, error } = useNotification()
 
     const onSubmit = async (values) => {
         axiosInstance.post('/review', values).then(({ data }) => {
             success("Review added!!!")
             reset()
             console.log(data)
+        }).catch(err => {
+            error(err.message)
         })
 
     }
 
     return (
         <Box as='section' p={{ base: '4', lg: '16' }}>
+            <Text as='h1' align='center' fontSize='3xl'>Add Review</Text>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack spacing={4}>
                     <FormControl isInvalid={errors?.description}>

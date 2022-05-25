@@ -30,6 +30,7 @@ function App() {
                 <Dashboard />
               </RequireAuth>} >
             <Route index element={<Profile />} />
+            <Route path='profile' element={<Profile />} />
             <Route path='add-review' element={<AddReview />} />
           </Route>
           {/* Dashboard end */}

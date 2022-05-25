@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link as RLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import {
     IconButton, Box, CloseButton, Flex, Icon, useColorModeValue, Link,
     Drawer, DrawerContent, Text, useDisclosure,
@@ -8,7 +8,7 @@ import { FiTrendingUp, FiCompass, FiArrowRight, FiUser } from 'react-icons/fi';
 
 
 const LinkItems = [
-    { name: 'My Profile', icon: FiUser, href: '/dashboard' },
+    { name: 'My Profile', icon: FiUser, href: '/dashboard/profile' },
     { name: 'My Orders', icon: FiTrendingUp, href: '/dashboard/my-orders' },
     { name: 'Add A Review', icon: FiCompass, href: '/dashboard/add-review' },
 ];
@@ -69,7 +69,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
             </Flex>
 
             {LinkItems.map((link) => (
-                <NavItem key={link.name} icon={link.icon} href={link.href}>
+                <NavItem key={link.name} onClick={() => { onClose() }} icon={link.icon} href={link.href} >
                     {link.name}
                 </NavItem>
             ))}
@@ -82,16 +82,20 @@ const SidebarContent = ({ onClose, ...rest }) => {
 
 const NavItem = ({ icon, href, children, ...rest }) => {
     return (
-        <Link as={RLink} to={href} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+        <Link as={NavLink} className='sidebar-item items-center'
+
+            to={href} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
             <Flex
                 align="center"
-                p="4"
+                px="4"
+                py='2'
+                my='2'
                 mx="4"
                 borderRadius="lg"
                 role="group"
                 cursor="pointer"
                 _hover={{
-                    bg: 'cyan.400',
+                    bg: 'brand.400',
                     color: 'white',
                 }}
                 {...rest}>
@@ -115,8 +119,6 @@ const NavItem = ({ icon, href, children, ...rest }) => {
 const MobileNav = ({ onOpen, ...rest }) => {
     return (
         <Flex
-            // ml={{ base: 0, md: 60 }}
-            // px={{ base: 4, md: 24 }}
             pos='fixed'
             top='40%'
             width='5'
