@@ -3,6 +3,7 @@ import './App.css';
 import Footer from './components/Footer/Footer';
 import NavBar from './components/NavBar/NavBar';
 import RequireAuth from './components/RequireAuth/RequireAuth';
+import AddReview from './pages/Dashboard/AddReview/AddReview';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Profile from './pages/Dashboard/Profile/Profile';
 import Home from './pages/Home/Home';
@@ -29,7 +30,7 @@ function App() {
                 <Dashboard />
               </RequireAuth>} >
             <Route index element={<Profile />} />
-            <Route path='add-review' element={<div>Add Review</div>} />
+            <Route path='add-review' element={<AddReview />} />
           </Route>
           {/* Dashboard end */}
           <Route path='/purchage/:id' element={
