@@ -4,6 +4,7 @@ import Footer from './components/Footer/Footer';
 import NavBar from './components/NavBar/NavBar';
 import RequireAuth from './components/RequireAuth/RequireAuth';
 import Dashboard from './pages/Dashboard/Dashboard';
+import Profile from './pages/Dashboard/Profile/Profile';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import NotFound from './pages/NotFound/NotFound';
@@ -27,8 +28,8 @@ function App() {
               <RequireAuth>
                 <Dashboard />
               </RequireAuth>} >
-            <Route index element={<div>My Dashboard</div>} />
-            <Route path='add-review' element={<div>My profile</div>} />
+            <Route index element={<Profile />} />
+            <Route path='add-review' element={<div>Add Review</div>} />
           </Route>
           {/* Dashboard end */}
           <Route path='/purchage/:id' element={
