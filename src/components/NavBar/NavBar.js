@@ -5,14 +5,17 @@ import {
     PopoverContent, useColorModeValue, useBreakpointValue, Avatar, Menu, MenuButton, MenuList, Center, MenuDivider, MenuItem, useColorMode,
 } from '@chakra-ui/react';
 import { NavLink, Link as RLink, useNavigate } from "react-router-dom"
+import { signOut } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth'
+
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5"
 import { HiOutlineChevronDown } from "react-icons/hi"
 import { BsSun, BsMoon } from "react-icons/bs"
+import { FiLogOut, FiUser } from 'react-icons/fi';
+
 import DesktopSubNav from './DesktopSubNav';
-import { useAuthState } from 'react-firebase-hooks/auth'
 import auth from '../../utils/firebase.init';
-import { signOut } from 'firebase/auth';
 
 
 const NAV_ITEMS = [
@@ -39,7 +42,6 @@ const NavBar = () => {
     const { isOpen, onToggle } = useDisclosure();
     const { colorMode, toggleColorMode } = useColorMode();
     const [user] = useAuthState(auth)
-    console.log(user)
 
     const onLogout = () => {
         signOut(auth)
@@ -123,9 +125,8 @@ const NavBar = () => {
                                     <p>{user?.displayName}</p>
                                 </Center>
                                 <MenuDivider />
-                                <MenuItem>My Profile</MenuItem>
-                                <MenuItem>Account Settings</MenuItem>
-                                <MenuItem onClick={onLogout}>Logout</MenuItem>
+                                <MenuItem><FiUser className='mr-1' /> My Profile</MenuItem>
+                                <MenuItem onClick={onLogout}><FiLogOut className='mr-1' /> Logout</MenuItem>
                             </MenuList>
                         </Menu>
                     ) : (
@@ -139,6 +140,8 @@ const NavBar = () => {
                                 Sign In
                             </Button>
                             <Button
+                                as={RLink}
+                                to="/signup"
                                 display={{ base: 'none', md: 'inline-flex' }}
                                 fontSize={'sm'}
                                 fontWeight={600}
@@ -152,9 +155,6 @@ const NavBar = () => {
                             </Button>
                         </>
                     )}
-
-
-
                 </Stack>
             </Flex>
 

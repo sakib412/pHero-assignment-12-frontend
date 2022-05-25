@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as RLink } from 'react-router-dom'
 import {
     IconButton,
     Box,
@@ -22,10 +23,10 @@ import {
 
 
 const LinkItems = [
-    { name: 'Dashboard', icon: FiHome },
-    { name: 'My Profile', icon: FiUser },
-    { name: 'My Orders', icon: FiTrendingUp },
-    { name: 'Add A Review', icon: FiCompass },
+    { name: 'Dashboard', icon: FiHome, href: '/dashboard' },
+    { name: 'My Profile', icon: FiUser, href: '/dashboard/profile' },
+    { name: 'My Orders', icon: FiTrendingUp, href: '/dashboard/my-orders' },
+    { name: 'Add A Review', icon: FiCompass, href: '/dashboard/add-review' },
 ];
 
 export default function Sidebar({ children }) {
@@ -84,7 +85,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
             </Flex>
 
             {LinkItems.map((link) => (
-                <NavItem key={link.name} icon={link.icon}>
+                <NavItem key={link.name} icon={link.icon} href={link.href}>
                     {link.name}
                 </NavItem>
             ))}
@@ -95,9 +96,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
 };
 
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, href, children, ...rest }) => {
     return (
-        <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+        <Link as={RLink} to={href} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
             <Flex
                 align="center"
                 p="4"

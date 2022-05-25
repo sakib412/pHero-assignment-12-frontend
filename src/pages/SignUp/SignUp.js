@@ -2,7 +2,7 @@ import {
     Flex, Box,
     FormControl, FormLabel, Input,
     Stack, Link, Button,
-    Heading, Text, useColorModeValue, FormErrorMessage, InputGroup, InputRightElement, Center, Toast, useToast,
+    Heading, Text, useColorModeValue, FormErrorMessage, InputGroup, InputRightElement, Center, useToast,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form'
@@ -25,7 +25,6 @@ const SignUp = () => {
     } = useForm()
     const [
         signInWithGoogle,
-        // eslint-disable-next-line no-unused-vars
         userFromGoogle,
         // eslint-disable-next-line no-unused-vars
         loadingFromGoogle,
@@ -34,6 +33,7 @@ const SignUp = () => {
 
     // eslint-disable-next-line no-unused-vars
     const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth)
+    // eslint-disable-next-line no-unused-vars
     const [updateProfile, updating, updateError] = useUpdateProfile(auth)
 
     useEffect(() => {
@@ -55,9 +55,8 @@ const SignUp = () => {
                 position: 'top-right',
                 isClosable: true
             })
-            navigate('/')
+            window.location.href = '/'
         }
-
     }, [navigate, toast, user, userFromGoogle])
 
     const onSubmit = async (values) => {
@@ -138,7 +137,7 @@ const SignUp = () => {
                                 <FormLabel>Confirm Password</FormLabel>
                                 <InputGroup>
                                     <Input
-                                        type={showPassword ? 'text' : 'password'}
+                                        type={showCPassword ? 'text' : 'password'}
                                         {...register("confirm_password", {
                                             required: "PLease input confirm password",
                                             validate: (val) => {

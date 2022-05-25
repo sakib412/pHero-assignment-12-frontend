@@ -16,10 +16,13 @@ function App() {
       </header>
       <main>
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route index element={<Home />} />
           <Route path='/signin' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
-          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='dashboard' element={<Dashboard />} >
+            <Route index element={<div>My Dashboard</div>} />
+            <Route path='profile' element={<div>My profile</div>} />
+          </Route>
           <Route path='*' element={<NotFound />} />
         </Routes>
       </main>

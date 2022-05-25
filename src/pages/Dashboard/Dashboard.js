@@ -1,13 +1,12 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 import Sidebar from '../../components/Sidebar/Sidebar'
 
 const Dashboard = () => {
     return (
-        <div>
-            <Sidebar>
-                Hello there
-            </Sidebar>
-        </div>
+        <Sidebar>
+            <Outlet />
+        </Sidebar>
     )
 }
 
