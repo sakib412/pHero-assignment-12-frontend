@@ -14,8 +14,9 @@ const ManageOrders = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [activePage, setActivePage] = useState(1)
     const { isLoading, data, refetch } = useQuery([activePage],
-        () => axiosInstance.get(`/product?page=${activePage}`).then((data) => data.data))
+        () => axiosInstance.get(`/order?page=${activePage}`).then((data) => data.data))
     const [deleteID, setDeleteID] = useState('')
+    console.log(data)
 
     const onDeleteProduct = (id) => {
         setDeleteID(id)
@@ -48,18 +49,18 @@ const ManageOrders = () => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {!isLoading && data && data?.results?.data?.map((product) => (
-                                <Tr key={product._id}>
+                            {!isLoading && data && data?.results?.data?.map((order) => (
+                                <Tr key={order._id}>
                                     <Td>
                                         <Flex alignItems='center'>
-                                            <Avatar src={product?.image} alt={product?.name} className='mr-2' />
-                                            {product?.name}
+                                            <Avatar src={order?.product?.image} className='mr-3' alt={order?.product?.name} />
+                                            {order?.product?.name}
                                         </Flex>
                                     </Td>
-                                    <Td>{product?.quantity}</Td>
+                                    <Td>{order?.price}</Td>
                                     <Td>
 
-                                        <Button onClick={() => { onDeleteProduct(product._id) }} colorScheme='red' leftIcon={<MdDelete />}>Delete</Button>
+                                        <Button onClick={() => { onDeleteProduct(order._id) }} colorScheme='red' leftIcon={<MdDelete />}>Delete</Button>
 
                                     </Td>
                                 </Tr>

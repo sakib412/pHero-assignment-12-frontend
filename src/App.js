@@ -6,6 +6,7 @@ import RequireAuth from './components/RequireAuth/RequireAuth';
 import AddProduct from './pages/Dashboard/AddProduct/AddProduct';
 import AddReview from './pages/Dashboard/AddReview/AddReview';
 import Dashboard from './pages/Dashboard/Dashboard';
+import ManageOrders from './pages/Dashboard/ManageOrders/ManageOrders';
 import ManageProducts from './pages/Dashboard/ManageProducts/ManageProducts';
 import Profile from './pages/Dashboard/Profile/Profile';
 import Home from './pages/Home/Home';
@@ -36,6 +37,7 @@ function App() {
             <Route path='add-review' element={<AddReview />} />
             <Route path='add-product' element={<AddProduct />} />
             <Route path='manage-products' element={<ManageProducts />} />
+            <Route path='manage-orders' element={<ManageOrders />} />
           </Route>
           {/* Dashboard end */}
           <Route path='/purchage/:id' element={
