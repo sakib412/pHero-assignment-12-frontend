@@ -54,7 +54,6 @@ const Purchage = () => {
         }).catch((err) => {
             error(err.message)
         })
-        console.log(values)
     }
 
     return (

@@ -76,7 +76,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
             {...rest}>
             <Flex h={{ base: 20, md: 0 }} alignItems="center" mx="8" justifyContent="space-between">
                 <Text display={{ base: 'flex', md: 'none' }} fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-                    Logo
+                    Pretty Parts
                 </Text>
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>

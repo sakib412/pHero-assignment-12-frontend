@@ -4,10 +4,10 @@ import {
     Stack,
     SimpleGrid,
     Text,
-    Link,
     useColorModeValue,
     Image,
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import { FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
 import SocialButton from '../SocialButton/SocialButton';
 
@@ -35,25 +35,25 @@ const Footer = () => {
                 <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
                     <Stack align={'flex-start'}>
                         <ListHeader>Company</ListHeader>
-                        <Link href={'#'}>About Us</Link>
-                        <Link href={'#'}>Blog</Link>
-                        <Link href={'#'}>Careers</Link>
-                        <Link href={'#'}>Contact Us</Link>
+                        <Link to={'/#'}>About Us</Link>
+                        <Link to={'/blogs'}>Blog</Link>
+                        <Link to={'#'}>Careers</Link>
+                        <Link to={'#'}>Contact Us</Link>
                     </Stack>
 
                     <Stack align={'flex-start'}>
                         <ListHeader>Support</ListHeader>
-                        <Link href={'#'}>Help Center</Link>
-                        <Link href={'#'}>Safety Center</Link>
-                        <Link href={'#'}>Community Guidelines</Link>
+                        <Link to={'#'}>Help Center</Link>
+                        <Link to={'#'}>Safety Center</Link>
+                        <Link to={'#'}>Community Guidelines</Link>
                     </Stack>
 
                     <Stack align={'flex-start'}>
                         <ListHeader>Legal</ListHeader>
-                        <Link href={'#'}>Cookies Policy</Link>
-                        <Link href={'#'}>Privacy Policy</Link>
-                        <Link href={'#'}>Terms of Service</Link>
-                        <Link href={'#'}>Law Enforcement</Link>
+                        <Link to={'#'}>Cookies Policy</Link>
+                        <Link to={'#'}>Privacy Policy</Link>
+                        <Link to={'#'}>Terms of Service</Link>
+                        <Link to={'#'}>Law Enforcement</Link>
                     </Stack>
 
                     <Stack align={'flex-start'}>
@@ -81,15 +81,15 @@ const Footer = () => {
                     spacing={4}
                     justify={{ md: 'space-between' }}
                     align={{ md: 'center' }}>
-                    <Text>© 2022 Sakib. All rights reserved</Text>
+                    <Text>© 2022 Pretty Parts. All rights reserved</Text>
                     <Stack direction={'row'} spacing={6}>
-                        <SocialButton label={'Twitter'} href={'#'}>
+                        <SocialButton label={'Twitter'} to={'#'}>
                             <FaTwitter />
                         </SocialButton>
-                        <SocialButton label={'YouTube'} href={'#'}>
+                        <SocialButton label={'YouTube'} to={'#'}>
                             <FaYoutube />
                         </SocialButton>
-                        <SocialButton label={'Instagram'} href={'#'}>
+                        <SocialButton label={'Instagram'} to={'#'}>
                             <FaInstagram />
                         </SocialButton>
                     </Stack>

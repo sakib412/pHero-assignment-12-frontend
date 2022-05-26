@@ -58,7 +58,6 @@ const SignUp = () => {
                 image: (user && user?.user?.photoURL) || userFromGoogle?.user?.photoURL || null,
                 method: userFromGoogle?.user?.email ? 'google' : 'form'
             }).then(({ data }) => {
-                console.log(data)
                 assignJWT(data.results.accessToken)
 
                 toast({

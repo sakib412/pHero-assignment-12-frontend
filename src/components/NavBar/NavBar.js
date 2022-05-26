@@ -26,15 +26,16 @@ const NAV_ITEMS = [
     },
     {
         label: 'Dashboard',
-        href: '/dashboard'
+        href: '/dashboard',
+        user: 'auth'
     },
     {
         label: 'Portfolio',
         href: '/portfolio'
     },
     {
-        label: 'About Us',
-        href: '/about-us',
+        label: 'Blogs',
+        href: '/blogs',
     },
     {
         label: 'Contact Us',
@@ -86,12 +87,12 @@ const NavBar = () => {
                             fontFamily={'heading'}
                             fontSize="large"
                             color={useColorModeValue('gray.800', 'white')}>
-                            Logo
+                            Pretty Parts
                         </Text>
                     </RLink>
 
                     <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-                        <DesktopNav />
+                        <DesktopNav user={user} />
                     </Flex>
                 </Flex>
 
@@ -164,7 +165,7 @@ const NavBar = () => {
             </Flex>
 
             <Collapse in={isOpen} animateOpacity>
-                <MobileNav />
+                <MobileNav user={user} onToggle={onToggle} />
             </Collapse>
         </Box>
     )
@@ -173,7 +174,7 @@ const NavBar = () => {
 export default NavBar
 
 
-const DesktopNav = () => {
+const DesktopNav = ({ user }) => {
     const linkColor = useColorModeValue('gray.600', 'gray.200');
     const linkHoverColor = useColorModeValue('gray.800', 'white');
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
@@ -181,7 +182,7 @@ const DesktopNav = () => {
     return (
         <Stack direction={'row'} spacing={4}>
             {NAV_ITEMS.map((navItem) => (
-                <Box key={navItem.label}>
+                <Box key={navItem.label} display={!user && navItem.user && 'none'}>
                     <Popover trigger={'hover'} placement={'bottom-start'}>
                         <PopoverTrigger>
                             <Link
@@ -222,28 +223,29 @@ const DesktopNav = () => {
 };
 
 
-const MobileNav = () => {
+const MobileNav = ({ onToggle, user }) => {
     return (
         <Stack
             bg={useColorModeValue('white', 'gray.800')}
             p={4}
             display={{ md: 'none' }}>
             {NAV_ITEMS.map((navItem) => (
-                <MobileNavItem key={navItem.label} {...navItem} />
+                <MobileNavItem user1={user} onToggle={onToggle} key={navItem.label} {...navItem} />
             ))}
         </Stack>
     );
 };
 
-const MobileNavItem = ({ label, children, href }) => {
+const MobileNavItem = ({ label, children, href, onToggle: onToggle2, user1, user }) => {
     const { isOpen, onToggle } = useDisclosure();
 
     return (
-        <Stack spacing={4} onClick={children && onToggle}>
+        <Stack spacing={4} onClick={children && onToggle} display={!user1 && user && 'none'}>
             <Flex
                 py={2}
-                as={Link}
-                href={href ?? '#'}
+                as={RLink}
+                onClick={onToggle2}
+                to={href ?? '#'}
                 justify={'space-between'}
                 align={'center'}
                 _hover={{

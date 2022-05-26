@@ -12,7 +12,6 @@ const AddReview = () => {
         axiosInstance.post('/review', values).then(({ data }) => {
             success("Review added!!!")
             reset()
-            console.log(data)
         }).catch(err => {
             error(err.message)
         })

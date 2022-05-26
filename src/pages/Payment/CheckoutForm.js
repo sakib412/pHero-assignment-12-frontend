@@ -38,16 +38,14 @@ const CheckoutForm = ({ order, refetch }) => {
             return
         }
 
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
+        const { error } = await stripe.createPaymentMethod({
             type: 'card',
             card,
         });
 
         if (error) {
             errorMessage(error?.message)
-            console.log(error)
         } else {
-            console.log(paymentMethod)
         }
 
         // Confirm card payment
@@ -67,7 +65,6 @@ const CheckoutForm = ({ order, refetch }) => {
         if (confirmError) {
             errorMessage(confirmError?.message)
         } else {
-            console.log(paymentIntent)
             await axiosInstance.patch(`/order/${_id}`, { invoice: JSON.stringify(paymentIntent) }).then(() => {
                 success("Your payment is successfull!")
             })

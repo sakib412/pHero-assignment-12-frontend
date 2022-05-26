@@ -9,7 +9,6 @@ const Reviews = () => {
     useEffect(() => {
         axiosInstance.get('/review').then(({ data }) => {
             setReviews(data.results)
-            console.log(data)
         })
     }, [])
 

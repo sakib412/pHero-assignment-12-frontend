@@ -14,7 +14,6 @@ const Profile = () => {
     useEffect(() => {
         axiosInstance.get('/me').then(({ data }) => {
             setUser(data.results)
-            console.log(data)
         })
     }, [])
 

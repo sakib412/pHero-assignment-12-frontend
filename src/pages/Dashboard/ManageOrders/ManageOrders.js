@@ -34,7 +34,6 @@ const ManageOrders = () => {
     }
 
     const onStatusUpdate = async (status, id) => {
-        console.log(status, id)
 
         await axiosInstance.patch(`/order/${id}`, { status }).then(() => {
             success("Order updated!")

@@ -53,7 +53,6 @@ const Login = () => {
                 image: user?.user?.photoURL || userFromGoogle?.user?.photoURL,
                 name: user?.user?.displayName || userFromGoogle?.user?.displayName
             }).then(({ data }) => {
-                console.log(data)
                 assignJWT(data.results?.accessToken)
                 success("Logged in successfully")
                 navigate(from, { replace: true })
@@ -64,7 +63,6 @@ const Login = () => {
 
     async function onSubmit(values) {
         await signInWithEmailAndPassword(values.email, values.password)
-        console.log(values)
     }
 
     return (

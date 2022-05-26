@@ -8,10 +8,10 @@ export default function Success({ title, description }) {
                 <Text color={'green.500'}>
                     <BiCheckCircle size='5rem' />
                 </Text>
-                <Heading as="h2" size="lg" mt={6} mb={2}>
+                <Heading textAlign='center' as="h2" size="lg" mt={6} mb={2}>
                     {title}
                 </Heading>
-                <Text fontSize='1.3rem' color={'gray.500'}>
+                <Text textAlign='center' fontSize='1.3rem' color={'gray.500'}>
                     {description}
                 </Text>
             </Flex>
