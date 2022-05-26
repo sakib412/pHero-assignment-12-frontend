@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {
     Table, Thead, Tbody, Tr, Th,
-    Td, TableCaption, TableContainer, Box, Flex, Button, Avatar, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure
+    Td, TableCaption, TableContainer, Box, Flex, Button, Avatar, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure, Select,
 } from '@chakra-ui/react'
 import Pagination from '../../../components/Pagination/Pagination'
 import { MdDelete } from 'react-icons/md'
@@ -16,7 +16,6 @@ const ManageOrders = () => {
     const { isLoading, data, refetch } = useQuery([activePage],
         () => axiosInstance.get(`/order?page=${activePage}`).then((data) => data.data))
     const [deleteID, setDeleteID] = useState('')
-    console.log(data)
 
     const onDeleteProduct = (id) => {
         setDeleteID(id)
@@ -44,7 +43,9 @@ const ManageOrders = () => {
                         <Thead>
                             <Tr>
                                 <Th>Name</Th>
+                                <Th>Payment info</Th>
                                 <Th>Status</Th>
+                                <Th>Price</Th>
                                 <Th>Action</Th>
                             </Tr>
                         </Thead>
@@ -57,10 +58,23 @@ const ManageOrders = () => {
                                             {order?.product?.name}
                                         </Flex>
                                     </Td>
+                                    <Td>
+                                        {order.invoice ? 'PAID' : 'UNPAID'}
+                                    </Td>
+                                    <Td>
+                                        <Select disabled>
+                                            <option>
+                                                {order?.status}
+                                            </option>
+                                            <option>
+                                                SHIPPED
+                                            </option>
+                                        </Select>
+                                    </Td>
                                     <Td>{order?.price}</Td>
                                     <Td>
 
-                                        <Button onClick={() => { onDeleteProduct(order._id) }} colorScheme='red' leftIcon={<MdDelete />}>Delete</Button>
+                                        <Button onClick={() => { onDeleteProduct(order._id) }} colorScheme='red' >Cancel</Button>
 
                                     </Td>
                                 </Tr>
