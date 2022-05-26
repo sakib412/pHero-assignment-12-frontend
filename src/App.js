@@ -3,6 +3,7 @@ import './App.css';
 import Footer from './components/Footer/Footer';
 import NavBar from './components/NavBar/NavBar';
 import RequireAuth from './components/RequireAuth/RequireAuth';
+import AddProduct from './pages/Dashboard/AddProduct/AddProduct';
 import AddReview from './pages/Dashboard/AddReview/AddReview';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Profile from './pages/Dashboard/Profile/Profile';
@@ -32,6 +33,7 @@ function App() {
             <Route index element={<Profile />} />
             <Route path='profile' element={<Profile />} />
             <Route path='add-review' element={<AddReview />} />
+            <Route path='add-product' element={<AddProduct />} />
           </Route>
           {/* Dashboard end */}
           <Route path='/purchage/:id' element={
