@@ -17,7 +17,8 @@ const Purchage = () => {
         handleSubmit,
         register,
         formState: { errors, isSubmitting },
-        watch
+        watch, reset,
+        setValue
     } = useForm()
     React.useEffect(() => {
         const subscription = watch((value, { name, type }) => {
@@ -33,8 +34,10 @@ const Purchage = () => {
     useEffect(() => {
         axiosInstance.get(`/product/${id}`).then(({ data }) => {
             setProduct(data.results)
+            setValue('quantity', data.results.minOrderQuantity)
             setFormQuantity(data.results.minOrderQuantity)
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
 
     const onSubmit = (values) => {
@@ -45,8 +48,9 @@ const Purchage = () => {
         }
 
         axiosInstance.post('/order', payload).then(({ data }) => {
-            console.log(data);
             success("Order has been placed, Please pay now on my orders page")
+            reset()
+            setValue('quantity', minOrderQuantity)
         }).catch((err) => {
             error(err.message)
         })
@@ -153,7 +157,6 @@ const Purchage = () => {
                                             bg={useColorModeValue('white', 'gray.700')}
                                             id="quantity"
                                             type='number'
-                                            defaultValue={minOrderQuantity}
                                             {...register('quantity', {
                                                 type: 'number',
                                                 required: "Please input quantity",
