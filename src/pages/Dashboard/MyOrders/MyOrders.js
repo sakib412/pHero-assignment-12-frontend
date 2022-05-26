@@ -8,7 +8,7 @@ import { useQuery } from 'react-query'
 import axiosInstance from '../../../utils/axios'
 import useNotification from '../../../utils/useNotification'
 
-const ManageOrders = () => {
+const MyOrders = () => {
     const { success, error } = useNotification()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [activePage, setActivePage] = useState(1)
@@ -38,13 +38,13 @@ const ManageOrders = () => {
             <Box>
                 <TableContainer>
                     <Table variant='striped'>
-                        <TableCaption fontSize='3xl' placement='top'>Manage Orders - {data?.results?.totalData || 0}</TableCaption>
+                        <TableCaption fontSize='3xl' placement='top'>My Orders - {data?.results?.totalData || 0}</TableCaption>
                         <Thead>
                             <Tr>
                                 <Th>Name</Th>
-                                <Th>Payment info</Th>
                                 <Th>Status</Th>
                                 <Th>Price</Th>
+                                <Th>Payment info</Th>
                                 <Th>Action</Th>
                             </Tr>
                         </Thead>
@@ -58,23 +58,20 @@ const ManageOrders = () => {
                                         </Flex>
                                     </Td>
                                     <Td>
-                                        {order.invoice ? 'PAID' : 'UNPAID'}
-                                    </Td>
-                                    <Td>
-                                        <Select disabled>
-                                            <option>
-                                                {order?.status}
-                                            </option>
-                                            <option>
-                                                SHIPPED
-                                            </option>
-                                        </Select>
+                                        {order?.status}
                                     </Td>
                                     <Td>{order?.price}</Td>
                                     <Td>
+                                        {order.invoice ? 'PAID' : 'UNPAID'}
+                                    </Td>
 
-                                        <Button onClick={() => { onDeleteProduct(order._id) }} colorScheme='red' >Cancel</Button>
-
+                                    <Td>
+                                        <Flex>
+                                            {!order.invoice && (
+                                                <Button onClick={() => { onDeleteProduct(order._id) }} colorScheme='red' className='mr-3'>Cancel</Button>
+                                            )}
+                                            <Button onClick={() => { onDeleteProduct(order._id) }} colorScheme='blue' >Pay</Button>
+                                        </Flex>
                                     </Td>
                                 </Tr>
                             ))}
@@ -108,4 +105,4 @@ const ManageOrders = () => {
     )
 }
 
-export default ManageOrders
+export default MyOrders

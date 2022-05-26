@@ -8,6 +8,7 @@ import AddReview from './pages/Dashboard/AddReview/AddReview';
 import Dashboard from './pages/Dashboard/Dashboard';
 import ManageOrders from './pages/Dashboard/ManageOrders/ManageOrders';
 import ManageProducts from './pages/Dashboard/ManageProducts/ManageProducts';
+import MyOrders from './pages/Dashboard/MyOrders/MyOrders';
 import Profile from './pages/Dashboard/Profile/Profile';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
@@ -37,6 +38,7 @@ function App() {
             <Route path='add-review' element={<AddReview />} />
             <Route path='add-product' element={<AddProduct />} />
             <Route path='manage-products' element={<ManageProducts />} />
+            <Route path='my-orders' element={<MyOrders />} />
             <Route path='manage-orders' element={<ManageOrders />} />
           </Route>
           {/* Dashboard end */}
