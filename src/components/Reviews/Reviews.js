@@ -10,7 +10,6 @@ const Reviews = () => {
             setReviews(data.results)
             console.log(data)
         })
-
     }, [])
 
     return (

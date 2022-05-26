@@ -5,13 +5,14 @@ import { useParams } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import axiosInstance from '../../utils/axios'
 import auth from '../../utils/firebase.init'
+import useNotification from '../../utils/useNotification'
 
 const Purchage = () => {
     const { id } = useParams()
     const [product, setProduct] = useState({})
+    const { success, error } = useNotification()
     const { name, image, description, price, minOrderQuantity, quantity } = product
     const [formQuantity, setFormQuantity] = useState(1)
-    console.log(formQuantity)
     const {
         handleSubmit,
         register,
@@ -37,6 +38,18 @@ const Purchage = () => {
     }, [id])
 
     const onSubmit = (values) => {
+        const payload = {
+            ...values,
+            price: formQuantity * price,
+            productID: product._id
+        }
+
+        axiosInstance.post('/order', payload).then(({ data }) => {
+            console.log(data);
+            success("Order has been placed, Please pay now on my orders page")
+        }).catch((err) => {
+            error(err.message)
+        })
         console.log(values)
     }
 
