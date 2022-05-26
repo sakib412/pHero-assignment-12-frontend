@@ -16,11 +16,10 @@ const AddProduct = () => {
         }).catch(err => {
             error(err.message)
         })
-
     }
 
     return (
-        <Box as='section' p={{ base: '4', lg: '16' }}>
+        <Box as='section' px={{ base: '4', lg: '16' }}>
             <Text as='h1' align='center' fontSize='3xl'>Add Product</Text>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack spacing={4}>
@@ -107,7 +106,6 @@ const AddProduct = () => {
                         </FormErrorMessage>
                     </FormControl>
 
-
                     <Box >
                         <Button
                             bg={'brand.400'}
@@ -121,9 +119,7 @@ const AddProduct = () => {
                         </Button>
                     </Box>
                 </Stack>
-
             </form>
-
         </Box>
     )
 }

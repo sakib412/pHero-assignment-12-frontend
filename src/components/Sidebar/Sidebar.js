@@ -15,8 +15,8 @@ const LinkItems = [
     { name: 'My Orders', icon: FiTrendingUp, href: '/dashboard/my-orders', user: 'MEMBER' },
     { name: 'Add A Review', icon: FiCompass, href: '/dashboard/add-review', user: 'MEMBER' },
     { name: 'Add A Product', icon: IoAdd, href: '/dashboard/add-product', user: 'ADMIN' },
-    { name: 'Manage All Orders', icon: MdOutlineManageSearch, href: '/dashboard/manage-orders', user: 'ADMIN' },
     { name: 'Manage Products', icon: MdOutlineManageSearch, href: '/dashboard/manage-products', user: 'ADMIN' },
+    { name: 'Manage All Orders', icon: MdOutlineManageSearch, href: '/dashboard/manage-orders', user: 'ADMIN' },
     { name: 'Make Admin', icon: MdOutlineManageSearch, href: '/dashboard/make-admin', user: 'ADMIN' },
 ];
 
