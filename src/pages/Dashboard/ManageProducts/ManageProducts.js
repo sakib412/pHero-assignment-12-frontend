@@ -58,9 +58,9 @@ const ManageProducts = () => {
                                     </Td>
                                     <Td>{product?.quantity}</Td>
                                     <Td>
-                                        <Flex justifyContent='center'>
-                                            <Button onClick={() => { onDeleteProduct(product._id) }} colorScheme='red' leftIcon={<MdDelete />}>Delete</Button>
-                                        </Flex>
+
+                                        <Button onClick={() => { onDeleteProduct(product._id) }} colorScheme='red' leftIcon={<MdDelete />}>Delete</Button>
+
                                     </Td>
                                 </Tr>
                             ))}

@@ -10,10 +10,8 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom'
 
-const IMAGE =
-    'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
-
-const Product = () => {
+const Product = ({ product }) => {
+    const { _id, name, image, description, price, minOrderQuantity, quantity } = product
     return (
         <GridItem py={12} className='mx-auto'>
             <Box
@@ -39,7 +37,7 @@ const Product = () => {
                         pos: 'absolute',
                         top: 2,
                         left: 0,
-                        backgroundImage: `url(${IMAGE})`,
+                        backgroundImage: `url(${product.image || ''})`,
                         filter: 'blur(2px)',
                         zIndex: -1,
                     }}
@@ -53,23 +51,23 @@ const Product = () => {
                         height={230}
                         width={282}
                         objectFit={'cover'}
-                        src={IMAGE}
+                        src={image || ''}
                     />
                 </Box>
                 <Stack pt={10} align={'center'}>
 
                     <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
-                        Nice Chair, pink
+                        {name}
                     </Heading>
                     <Text color={'gray.500'} fontSize={'sm'}>
-                        Note that unlike containers you might have used in other frameworks.
+                        {description.slice(0, 20)}
                     </Text>
                     <Stack direction={'row'} align={'center'}>
                         <Text textTransform='uppercase' title='Minimum Order Quantity'>
-                            MOQ : <span className='font-bold'>20</span>
+                            MOQ : <span className='font-bold'>{minOrderQuantity}</span>
                         </Text>
                         <Text textTransform='uppercase'>
-                            Current Stock : <span className='font-bold'>500</span>
+                            Current Stock : <span className='font-bold'>{quantity}</span>
                         </Text>
                     </Stack>
                     <Stack direction={'row'} align={'center'}>
@@ -79,12 +77,12 @@ const Product = () => {
                         </Text>
                         <Text fontWeight={800} fontSize={'xl'}
                         >
-                            $57
+                            ${price}
                         </Text>
                     </Stack>
                     <Button
                         as={Link}
-                        to={`purchage/${'aaaaaaaa'}`}
+                        to={`purchage/${_id}`}
                         mt={10}
                         w={'full'}
                         bg={'brand.900'}
