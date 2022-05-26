@@ -2,6 +2,9 @@ import React from 'react'
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi'
 
 const Pagination = ({ pageSize = 10, activePage = 1, setActivePage }) => {
+    if (pageSize === 1) {
+        return null
+    }
     const onNextPage = () => {
         if (activePage < pageSize) {
             setActivePage((page) => page + 1)

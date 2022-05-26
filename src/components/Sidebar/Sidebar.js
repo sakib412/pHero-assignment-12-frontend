@@ -4,10 +4,11 @@ import {
     IconButton, Box, CloseButton, Flex, Icon, useColorModeValue, Link,
     Drawer, DrawerContent, Text, useDisclosure,
 } from '@chakra-ui/react';
-import { FiTrendingUp, FiCompass, FiArrowRight, FiUser } from 'react-icons/fi';
+import { FiTrendingUp, FiCompass, FiArrowRight, FiUser, FiUserPlus } from 'react-icons/fi';
 import { MdOutlineManageSearch } from 'react-icons/md'
-import axiosInstance from '../../utils/axios';
 import { IoAdd } from 'react-icons/io5';
+import { AiOutlineShop } from 'react-icons/ai';
+import axiosInstance from '../../utils/axios';
 
 
 const LinkItems = [
@@ -16,8 +17,8 @@ const LinkItems = [
     { name: 'Add A Review', icon: FiCompass, href: '/dashboard/add-review', user: 'MEMBER' },
     { name: 'Add A Product', icon: IoAdd, href: '/dashboard/add-product', user: 'ADMIN' },
     { name: 'Manage Products', icon: MdOutlineManageSearch, href: '/dashboard/manage-products', user: 'ADMIN' },
-    { name: 'Manage All Orders', icon: MdOutlineManageSearch, href: '/dashboard/manage-orders', user: 'ADMIN' },
-    { name: 'Make Admin', icon: MdOutlineManageSearch, href: '/dashboard/make-admin', user: 'ADMIN' },
+    { name: 'Manage All Orders', icon: AiOutlineShop, href: '/dashboard/manage-orders', user: 'ADMIN' },
+    { name: 'Make Admin', icon: FiUserPlus, href: '/dashboard/make-admin', user: 'ADMIN' },
 ];
 
 export default function Sidebar({ children }) {
@@ -85,9 +86,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
                     {link.name}
                 </NavItem>
             ))}
-
         </Box>
-
     );
 };
 

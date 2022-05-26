@@ -12,6 +12,7 @@ import { Link as RLink, useNavigate } from "react-router-dom"
 import { useSignInWithGoogle, useCreateUserWithEmailAndPassword, useUpdateProfile } from "react-firebase-hooks/auth"
 import auth from '../../utils/firebase.init';
 import axiosInstance from '../../utils/axios';
+import assignJWT from '../../utils/assignJWT';
 
 const SignUp = () => {
     const navigate = useNavigate()
@@ -57,6 +58,9 @@ const SignUp = () => {
                 image: (user && user?.user?.photoURL) || userFromGoogle?.user?.photoURL || null,
                 method: userFromGoogle?.user?.email ? 'google' : 'form'
             }).then(({ data }) => {
+                console.log(data)
+                assignJWT(data.results.accessToken)
+
                 toast({
                     title: "Account created!!!",
                     status: 'success',

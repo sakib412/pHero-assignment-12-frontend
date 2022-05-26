@@ -1,4 +1,4 @@
-import { SimpleGrid } from '@chakra-ui/react'
+import { SimpleGrid, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import axiosInstance from '../../utils/axios'
 import Product from './Product'
@@ -12,9 +12,18 @@ const ProductsList = () => {
         })
     }, [])
     return (
-        <SimpleGrid minChildWidth='330px' className='container mx-auto'>
-            {products.map((product => <Product key={product._id} product={product} />))}
-        </SimpleGrid>
+        <>
+            <Text as='h1'
+                textAlign={'center'}
+                fontSize={'4xl'}
+                py={10}
+                fontWeight={'bold'}>
+                Latest Tools
+            </Text>
+            <SimpleGrid minChildWidth='330px' className='container mx-auto'>
+                {products.map((product => <Product key={product._id} product={product} />))}
+            </SimpleGrid>
+        </>
     )
 }
 

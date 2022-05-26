@@ -29,6 +29,10 @@ const NAV_ITEMS = [
         href: '/dashboard'
     },
     {
+        label: 'Portfolio',
+        href: '/portfolio'
+    },
+    {
         label: 'About Us',
         href: '/about-us',
     },
@@ -126,7 +130,7 @@ const NavBar = () => {
                                     <p>{user?.displayName}</p>
                                 </Center>
                                 <MenuDivider />
-                                <MenuItem><FiUser className='mr-1' /> My Profile</MenuItem>
+                                <MenuItem as={RLink} to='/dashboard/profile'><FiUser className='mr-1' /> My Profile</MenuItem>
                                 <MenuItem onClick={onLogout}><FiLogOut className='mr-1' /> Logout</MenuItem>
                             </MenuList>
                         </Menu>

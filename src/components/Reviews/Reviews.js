@@ -1,5 +1,6 @@
 import { Image } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
+import ReactStars from 'react-stars'
 import axiosInstance from '../../utils/axios'
 
 const Reviews = () => {
@@ -14,7 +15,7 @@ const Reviews = () => {
 
     return (
 
-        <div className="min-w-screen min-h-screen flex items-center justify-center py-5">
+        <div className="min-w-screen min-h-screen flex items-center justify-center">
             <div className="w-full  border-t border-b border-gray-200 px-5 py-16 md:py-24 text-gray-800">
                 <div className="w-full max-w-6xl mx-auto">
                     <div className="text-center max-w-xl mx-auto">
@@ -39,6 +40,14 @@ const Reviews = () => {
                                             <h6 className="font-bold text-sm uppercase text-gray-600">
                                                 {review?.reviewer?.name}
                                             </h6>
+                                            <span className="text-sm">
+                                                <ReactStars
+                                                    count={review?.ratings}
+                                                    size={24}
+                                                    color1='gold'
+                                                    color2={'red'}
+                                                    edit={false} />
+                                            </span>
                                         </div>
                                     </div>
                                     <div className="w-full">
@@ -53,8 +62,6 @@ const Reviews = () => {
                 </div>
             </div>
         </div>
-
-
     )
 }
 

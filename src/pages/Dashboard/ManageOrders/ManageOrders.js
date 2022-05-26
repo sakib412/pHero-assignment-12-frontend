@@ -12,23 +12,35 @@ const ManageOrders = () => {
     const { success, error } = useNotification()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [activePage, setActivePage] = useState(1)
+    const [orderStatus] = useState(['PENDING', 'SHIPPED'])
     const { isLoading, data, refetch } = useQuery([activePage],
         () => axiosInstance.get(`/order?page=${activePage}`).then((data) => data.data))
     const [deleteID, setDeleteID] = useState('')
 
-    const onDeleteProduct = (id) => {
+    const onDeleteOrder = (id) => {
         setDeleteID(id)
         onOpen()
     }
 
-    const deleteProduct = () => {
-        axiosInstance.delete(`/product/${deleteID}`).then(({ data }) => {
+    const deleteOrder = () => {
+        axiosInstance.delete(`/order/${deleteID}`).then(({ data }) => {
             success("Successfully deleted!!!")
             refetch()
         }).catch((err) => {
             error(err.message)
         }).finally(() => {
             onClose()
+        })
+    }
+
+    const onStatusUpdate = async (status, id) => {
+        console.log(status, id)
+
+        await axiosInstance.patch(`/order/${id}`, { status }).then(() => {
+            success("Order updated!")
+            refetch()
+        }).catch((err) => {
+            error(err.message)
         })
     }
 
@@ -61,20 +73,21 @@ const ManageOrders = () => {
                                         {order.invoice ? 'PAID' : 'UNPAID'}
                                     </Td>
                                     <Td>
-                                        <Select disabled>
-                                            <option>
-                                                {order?.status}
-                                            </option>
-                                            <option>
-                                                SHIPPED
-                                            </option>
+                                        <Select disabled={!order.invoice}
+                                            onChange={(event) => { onStatusUpdate(event.target.value, order._id) }}>
+                                            {orderStatus.map(status => (
+                                                <option key={status} selected={status === order.status} value={status}>
+                                                    {status}
+                                                </option>
+
+                                            ))}
+
+
                                         </Select>
                                     </Td>
                                     <Td>{order?.price}</Td>
                                     <Td>
-
-                                        <Button onClick={() => { onDeleteProduct(order._id) }} colorScheme='red' >Cancel</Button>
-
+                                        <Button disabled={order.invoice} onClick={() => { onDeleteOrder(order._id) }} colorScheme='red' >Cancel</Button>
                                     </Td>
                                 </Tr>
                             ))}
@@ -99,7 +112,7 @@ const ManageOrders = () => {
                         <Button mr={3} onClick={onClose}>
                             Cancel
                         </Button>
-                        <Button onClick={deleteProduct} colorScheme='red'>Delete</Button>
+                        <Button onClick={deleteOrder} colorScheme='red'>Delete</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

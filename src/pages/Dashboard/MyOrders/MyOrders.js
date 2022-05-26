@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import {
     Table, Thead, Tbody, Tr, Th,
-    Td, TableCaption, TableContainer, Box, Flex, Button, Avatar, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure, Select,
+    Td, TableCaption, TableContainer, Box, Flex, Button, Avatar, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure, Text,
 } from '@chakra-ui/react'
 import Pagination from '../../../components/Pagination/Pagination'
 import { useQuery } from 'react-query'
 import axiosInstance from '../../../utils/axios'
 import useNotification from '../../../utils/useNotification'
+import { Link } from 'react-router-dom'
 
 const MyOrders = () => {
     const { success, error } = useNotification()
@@ -16,13 +17,13 @@ const MyOrders = () => {
         () => axiosInstance.get(`/order?page=${activePage}`).then((data) => data.data))
     const [deleteID, setDeleteID] = useState('')
 
-    const onDeleteProduct = (id) => {
+    const onDeleteOrder = (id) => {
         setDeleteID(id)
         onOpen()
     }
 
-    const deleteProduct = () => {
-        axiosInstance.delete(`/product/${deleteID}`).then(({ data }) => {
+    const deleteOrder = () => {
+        axiosInstance.delete(`/order/${deleteID}`).then(({ data }) => {
             success("Successfully deleted!!!")
             refetch()
         }).catch((err) => {
@@ -67,10 +68,15 @@ const MyOrders = () => {
 
                                     <Td>
                                         <Flex>
-                                            {!order.invoice && (
-                                                <Button onClick={() => { onDeleteProduct(order._id) }} colorScheme='red' className='mr-3'>Cancel</Button>
+                                            {!order.invoice ? (
+                                                <>
+                                                    <Button onClick={() => { onDeleteOrder(order._id) }} colorScheme='red' className='mr-3'>Cancel</Button>
+                                                    <Button as={Link} to={`/payment/${order?._id}`} colorScheme='blue'>Pay</Button>
+                                                </>
+                                            ) : (
+                                                <Text>TrxID: {JSON.parse(order.invoice)?.id}</Text>
                                             )}
-                                            <Button onClick={() => { onDeleteProduct(order._id) }} colorScheme='blue' >Pay</Button>
+
                                         </Flex>
                                     </Td>
                                 </Tr>
@@ -89,14 +95,14 @@ const MyOrders = () => {
                     <ModalHeader>Are you sure?</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        You want to delete this product?
+                        You want to cancel this order?
                     </ModalBody>
 
                     <ModalFooter>
                         <Button mr={3} onClick={onClose}>
-                            Cancel
+                            No
                         </Button>
-                        <Button onClick={deleteProduct} colorScheme='red'>Delete</Button>
+                        <Button onClick={deleteOrder} color='gray.50' colorScheme='red'>Yes</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
