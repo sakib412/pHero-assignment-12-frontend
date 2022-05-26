@@ -39,7 +39,7 @@ const ManageProducts = () => {
             <Box>
                 <TableContainer>
                     <Table variant='striped'>
-                        <TableCaption fontSize='3xl' placement='top'>Manage Products</TableCaption>
+                        <TableCaption fontSize='3xl' placement='top'>Manage Products - {data?.results?.totalData || 0}</TableCaption>
                         <Thead>
                             <Tr>
                                 <Th>Name</Th>
