@@ -11,8 +11,7 @@ const AddProduct = () => {
     const onSubmit = async (values) => {
         axiosInstance.post('/product', values).then(({ data }) => {
             success("Product added!!!")
-            reset()
-            console.log(data)
+            // reset()
         }).catch(err => {
             error(err.message)
         })
